@@ -27,7 +27,7 @@ export const register = async (req, res) => {
     const user = await pool.query({
       text: `
                 INSERT INTO users (fullName, email,phone, password, tokenUser,role)
-                VALUES ($1, $2, $3, $4, $5)
+                VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING *
             `,
       values: [fullName, email, phone, hashedPassword, tokenUser, role]

@@ -1,5 +1,4 @@
 -- USERS
-
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   fullName NVARCHAR(255) NOT NULL,

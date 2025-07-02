@@ -1,10 +1,17 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import cors from "cors";
+import express from 'express';
+import dotenv from "dotenv";
+import mainV1RoutesClient from "./api/v1/client/routes/client/index.route.js";
+import bodyParser from "body-parser";
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+dotenv.config();
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+mainV1RoutesClient(app);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
