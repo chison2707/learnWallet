@@ -1,4 +1,4 @@
-import { pool } from "../../../../config/database.js";
+import { pool } from "../../../config/database.js";
 
 export const requireAuth = async (req, res, next) => {
     if (req.headers.authorization) {
