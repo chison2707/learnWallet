@@ -7,6 +7,6 @@ import { login } from "../../validates/client/user.validate.js";
 
 router.post('/login', login, controller.loginPost);
 router.get('/detail', requireAuth, controller.detail);
-router.post('/linkStudent', requireAuth, controller.linkStudent);
+// router.post('/linkStudent', requireAuth, controller.linkStudent);
 
 export const userRouter = router;

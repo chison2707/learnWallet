@@ -28,3 +28,22 @@ export const createUserVld = (req, res, next) => {
     }
     next();
 }
+
+export const linkStudentVld = (req, res, next) => {
+    const errors = [];
+
+    if (!req.body.parentId) {
+        errors.push('Vui lòng chọn id phụ huynh!');
+    }
+    if (!req.body.studentId) {
+        errors.push('Vui lòng chọn id học viên!');
+    }
+
+    if (errors.length > 0) {
+        return res.json({
+            status: 422,
+            errors: errors
+        });
+    }
+    next();
+}

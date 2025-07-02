@@ -44,3 +44,51 @@ export const createUser = async (req, res) => {
         })
     }
 }
+
+// [POST]/api/v1/admin/users/linkStudent
+export const linkStudent = async (req, res) => {
+    try {
+        const { parentId, studentId } = req.body;
+
+        const studentRes = await pool.query(
+            'SELECT * FROM users WHERE id = $1 AND role = $2',
+            [studentId, 'student']
+        );
+
+        if (studentRes.rows.length === 0) {
+            return res.json({
+                code: 400,
+                message: 'Không tìm thấy học viên hợp lệ!'
+            });
+        }
+
+        const checkLink = await pool.query(
+            'SELECT * FROM parent_student WHERE parent_id = $1 AND student_id = $2',
+            [parentId, studentId]
+        );
+
+        if (checkLink.rows.length > 0) {
+            return res.json({
+                code: 400,
+                error: 'Đã liên kết học viên này rồi!'
+            });
+        }
+
+        // Tiến hành liên kết
+        await pool.query(
+            'INSERT INTO parent_student (parent_id, student_id) VALUES ($1, $2)',
+            [parentId, studentId]
+        );
+
+        res.json({
+            code: 200,
+            message: 'Liên kết học viên thành công'
+        });
+
+    } catch (error) {
+        res.json({
+            status: 500,
+            message: error.message
+        });
+    }
+}
