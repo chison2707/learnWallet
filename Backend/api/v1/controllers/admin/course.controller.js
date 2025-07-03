@@ -18,7 +18,7 @@ export const index = async (req, res) => {
   // end pagination
 
   const courses = await pool.query(
-    ' SELECT id, fullName, email, phone, role, tokenUser, createdAt FROM courses LIMIT $1 OFFSET $2',
+    ' SELECT * FROM courses LIMIT $1 OFFSET $2',
     [objPagination.limitItems, objPagination.skip]
   );
 
