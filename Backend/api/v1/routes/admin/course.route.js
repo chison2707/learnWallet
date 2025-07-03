@@ -8,6 +8,7 @@ import * as controller from "../../controllers/admin/course.controller.js";
 const upload = multer();
 
 router.get('/', controller.index);
+router.get('/:courseId', controller.getDetail);
 router.post('/createCourse', upload.single('thumbnail'), uploadCloud.uploadSingle, validate.course, controller.createCourse);
 // router.delete('/deleteUser/:userId', controller.deleteUser);
 
