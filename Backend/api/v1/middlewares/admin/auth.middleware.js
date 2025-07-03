@@ -1,4 +1,4 @@
-import { pool } from "../../../config/database.js";
+import { pool } from "../../../../config/database.js";
 
 const requireAuthAdmnin = async (req, res, next) => {
     if (req.headers.authorization) {
@@ -8,7 +8,7 @@ const requireAuthAdmnin = async (req, res, next) => {
             values: [token]
         });
 
-        if (user.rows.length === 0) {
+        if (admin.rows.length === 0) {
             return res.json({
                 code: 401,
                 message: 'Token không hợp lệ'

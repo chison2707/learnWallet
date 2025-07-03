@@ -5,7 +5,7 @@ import { generateRandomString } from "../helper/token.js";
 // [POST]/api/v1/users/register
 export const register = async (req, res) => {
   try {
-    const { fullName, email, phone, password, role, studentId } = req.body;
+    const { fullName, email, phone, password, role, studentIds } = req.body;
 
     const checkEmail = await pool.query(
       "SELECT * FROM users WHERE email = $1",
@@ -38,25 +38,31 @@ export const register = async (req, res) => {
     }
 
     if (role === "parent") {
-      if (!studentId) {
+      if (studentIds.length === 0) {
         return res.json({
           code: 400,
           message: "Phụ huynh cần nhập mã học viên để liên kết"
         });
       }
 
-      const studentCheck = await pool.query("SELECT * FROM users WHERE id = $1 AND role = 'student'", [studentId]);
-      if (studentCheck.rows.length === 0) {
-        return res.json({
-          code: 404,
-          message: "Học viên không tồn tại"
-        });
-      }
+      for (const sid of studentIds) {
+        const studentCheck = await pool.query(
+          "SELECT * FROM users WHERE id = $1 AND role = 'student'",
+          [sid]
+        );
 
-      await pool.query(
-        "INSERT INTO parent_student (parent_id, student_id) VALUES ($1, $2)",
-        [userId, studentId]
-      );
+        if (studentCheck.rows.length === 0) {
+          return res.json({
+            code: 404,
+            message: `Học viên với ID ${sid} không tồn tại`
+          });
+        }
+
+        await pool.query(
+          "INSERT INTO parent_student (parent_id, student_id) VALUES ($1, $2)",
+          [userId, sid]
+        );
+      }
     }
 
     res.json({
