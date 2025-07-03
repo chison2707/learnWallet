@@ -125,3 +125,48 @@ export const changeStatus = async (req, res) => {
     });
   }
 };
+
+// [PATCH]/api/v1/admin/courses/editCourse/:courseId
+export const editCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const { title, description, thumbnail } = req.body;
+
+    let result;
+
+    if (thumbnail) {
+      result = await pool.query(
+        `UPDATE courses
+         SET title = $1, description = $2, thumbnail = $3, updatedAt = CURRENT_TIMESTAMP
+         WHERE id = $4 RETURNING *`,
+        [title, description, thumbnail, courseId]
+      );
+    } else {
+      result = await pool.query(
+        `UPDATE courses
+         SET title = $1, description = $2, updatedAt = CURRENT_TIMESTAMP
+         WHERE id = $3 RETURNING *`,
+        [title, description, courseId]
+      );
+    }
+
+    if (result.rows.length === 0) {
+      return res.json({
+        code: 404,
+        message: 'Không tìm thấy khóa học!'
+      });
+    }
+
+    res.json({
+      code: 200,
+      message: 'Cập nhật khóa học thành công!',
+      data: result.rows[0]
+    });
+
+  } catch (err) {
+    res.json({
+      code: 500,
+      error: err.message
+    });
+  }
+};
