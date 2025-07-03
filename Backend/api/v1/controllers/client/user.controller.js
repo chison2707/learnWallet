@@ -84,7 +84,7 @@ export const loginPost = async (req, res) => {
     const { email, password } = req.body;
 
     const result = await pool.query({
-      text: "SELECT * FROM users WHERE email = $1",
+      text: "SELECT * FROM users WHERE email = $1 AND status = 'active'",
       values: [email],
     });
 
@@ -129,4 +129,40 @@ export const detail = async (req, res) => {
     message: "Lấy thông tin thành công!",
     infor: req.user
   });
+};
+
+// [GET]/api/v1/users/getStudent
+export const getStudent = async (req, res) => {
+  try {
+    const role = req.user.role;
+    const userId = req.user.id;
+
+    if (role !== "parent") {
+      return res.json({
+        code: 403,
+        message: "Bạn không có quyền truy cập chức năng này."
+      });
+    }
+
+    const result = await pool.query(`
+      SELECT 
+        users.id, users.fullName, users.email, users.phone
+      FROM parent_student ps
+      JOIN users  ON users.id = ps.student_id
+      WHERE ps.parent_id = $1
+    `, [userId]);
+
+    return res.json({
+      code: 200,
+      message: "Lấy danh sách học viên thành công.",
+      students: result.rows
+    });
+
+  } catch (error) {
+    return res.json({
+      code: 500,
+      message: error.message
+    });
+
+  }
 };

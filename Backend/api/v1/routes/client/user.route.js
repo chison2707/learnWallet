@@ -8,5 +8,6 @@ import * as validate from "../../validates/client/user.validate.js";
 router.post('/register', validate.rergisterVld, controller.register);
 router.post('/login', validate.login, controller.loginPost);
 router.get('/detail', requireAuth, controller.detail);
+router.get('/getStudent', requireAuth, controller.getStudent);
 
 export const userRouter = router;
