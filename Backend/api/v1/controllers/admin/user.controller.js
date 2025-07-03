@@ -121,3 +121,78 @@ export const changeStatus = async (req, res) => {
     })
   }
 }
+
+// [DELETE]/api/v1/admin/users/deleteUser/:userId
+export const deleteUser = async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const { userId } = req.params;
+
+    const user = await client.query(
+      'SELECT * FROM users WHERE id = $1',
+      [userId]
+    );
+
+    if (user.rows.length === 0) {
+      return res.status(404).json({
+        code: 404,
+        message: "Người dùng không tồn tại"
+      });
+    }
+
+    const userInfor = user.rows[0];
+
+    await client.query("BEGIN");
+
+    if (userInfor.role === 'student') {
+      await client.query(`DELETE FROM parent_student WHERE student_id = $1`, [userId]);
+      await client.query(`DELETE FROM wallets WHERE studentId = $1`, [userId]);
+      await client.query(`DELETE FROM users WHERE id = $1`, [userId]);
+
+      await client.query("COMMIT");
+      return res.json({
+        code: 200,
+        message: "Xóa học viên thành công!"
+      });
+    }
+
+    if (userInfor.role === 'parent') {
+      const childrenResult = await client.query(
+        `SELECT student_id FROM parent_student WHERE parent_id = $1`,
+        [userId]
+      );
+
+      const studentIds = childrenResult.rows.map(row => row.student_id);
+
+      await client.query(`DELETE FROM parent_student WHERE parent_id = $1`, [userId]);
+
+      if (studentIds.length > 0) {
+        await client.query(
+          `DELETE FROM wallets WHERE studentId = ANY($1::int[])`,
+          [studentIds]
+        );
+
+        await client.query(
+          `DELETE FROM users WHERE id = ANY($1::int[])`,
+          [studentIds]
+        );
+      }
+
+      await client.query(`DELETE FROM users WHERE id = $1`, [userId]);
+
+      await client.query("COMMIT");
+      return res.json({
+        code: 200,
+        message: "Xóa phụ huynh và học sinh liên kết thành công!"
+      });
+    }
+  } catch (error) {
+    await client.query("ROLLBACK");
+    return res.json({
+      code: 500,
+      error: error.message
+    });
+  } finally {
+    client.release();
+  }
+};
