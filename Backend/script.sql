@@ -37,7 +37,7 @@ CREATE TABLE wallets (
   id SERIAL PRIMARY KEY,
   studentId INTEGER UNIQUE REFERENCES users(id),
   balance INTEGER DEFAULT 0,
-  status VARCHAR(20) DEFAULT 'INACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+  status VARCHAR(20) DEFAULT 'inactive' CHECK (status IN ('ACTIVE', 'inactive')),
   createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -48,7 +48,7 @@ CREATE TABLE courses (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   thumbnail TEXT,
-  status VARCHAR(20) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+  status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -59,7 +59,7 @@ CREATE TABLE chapters (
   courseId INTEGER NOT NULL,
   title VARCHAR(255) NOT NULL,
   position INTEGER NOT NULL DEFAULT 1,
-  status VARCHAR(20) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+  status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
@@ -73,7 +73,7 @@ CREATE TABLE lessons (
   title VARCHAR(255) NOT NULL,
   videoUrl TEXT, 
   position INTEGER NOT NULL DEFAULT 1, 
-  status VARCHAR(20) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+  status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

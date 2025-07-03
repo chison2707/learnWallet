@@ -62,3 +62,66 @@ export const createCourse = async (req, res) => {
     });
   }
 };
+
+// [PATCH] /api/v1/admin/courses/changeStatus/:courseId?status=
+export const changeStatus = async (req, res) => {
+  const { courseId } = req.params;
+  const { status } = req.query;
+
+  const validStatuses = ['active', 'inactive'];
+  if (!validStatuses) {
+    return res.json({
+      code: 400,
+      message: 'Trạng thái không hợp lệ'
+    });
+  }
+
+  try {
+    await pool.query('BEGIN');
+
+    const courseResult = await pool.query(
+      `UPDATE courses 
+       SET status = $1, updatedAt = CURRENT_TIMESTAMP 
+       WHERE id = $2 RETURNING *`,
+      [status, courseId]
+    );
+
+    if (courseResult.rows.length === 0) {
+      await pool.query('ROLLBACK');
+      return res.json({
+        code: 404,
+        message: 'Không tìm thấy khóa học'
+      });
+    }
+
+    await pool.query(
+      `UPDATE chapters 
+       SET status = $1, updatedAt = CURRENT_TIMESTAMP 
+       WHERE courseId = $2`,
+      [status, courseId]
+    );
+
+    await pool.query(
+      `UPDATE lessons 
+       SET status = $1, updatedAt = CURRENT_TIMESTAMP 
+       WHERE chapterId IN (
+         SELECT id FROM chapters WHERE courseId = $2
+       )`,
+      [status, courseId]
+    );
+
+    await pool.query('COMMIT');
+
+    res.json({
+      code: 200,
+      message: `Cập nhật trạng thái khóa học và các thành phần liên quan thành công`,
+      data: courseResult.rows[0]
+    });
+  } catch (err) {
+    await pool.query('ROLLBACK');
+    res.json({
+      code: 500,
+      error: err.message
+    });
+  }
+};

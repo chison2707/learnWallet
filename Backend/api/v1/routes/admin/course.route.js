@@ -10,6 +10,6 @@ const upload = multer();
 router.get('/', controller.index);
 router.get('/:courseId', controller.getDetail);
 router.post('/createCourse', upload.single('thumbnail'), uploadCloud.uploadSingle, validate.course, controller.createCourse);
-// router.delete('/deleteUser/:userId', controller.deleteUser);
+router.patch('/changeStatus/:courseId', controller.changeStatus);
 
 export const courseRouter = router;
