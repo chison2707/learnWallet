@@ -7,6 +7,7 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   tokenUser VARCHAR(255) UNIQUE NOT NULL,
   role VARCHAR(25) CHECK (role IN ('student', 'parent')) NOT NULL,
+  status BOOLEAN DEFAULT TRUE,
   createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -38,4 +39,24 @@ CREATE TABLE wallets (
   balance INTEGER DEFAULT 0,
   createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- lessons
+CREATE TABLE lessons (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  rewardToken INTEGER DEFAULT 10,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- lesson results
+CREATE TABLE progress  (
+  id SERIAL PRIMARY KEY,
+  studentId INTEGER REFERENCES users(id),
+  lessonId INTEGER REFERENCES lessons(id),
+  score INTEGER,
+  completed BOOLEAN DEFAULT FALSE,
+  completedAt TIMESTAMP,
+  UNIQUE(studentId, lessonId)
 );
