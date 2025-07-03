@@ -73,6 +73,11 @@ export const changeStatus = async (req, res) => {
         [status, userId]
       );
 
+      await pool.query(
+        `UPDATE wallets SET status = $1 WHERE studentId = $2`,
+        [status, userId]
+      );
+
       return res.json({
         code: 200,
         message: "Cập nhật trạng thái thành công!"
@@ -95,6 +100,11 @@ export const changeStatus = async (req, res) => {
       if (studentIds.length > 0) {
         await pool.query(
           `UPDATE users SET status = $1 WHERE id = ANY($2::int[])`,
+          [status, studentIds]
+        );
+
+        await pool.query(
+          `UPDATE wallets SET status = $1 WHERE studentId = ANY($2::int[])`,
           [status, studentIds]
         );
       }
