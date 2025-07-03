@@ -170,3 +170,26 @@ export const editCourse = async (req, res) => {
     });
   }
 };
+
+// [DELETE]/api/v1/admin/courses/deleteCousrse/:courseId
+export const deleteCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const result = await pool.query('DELETE FROM courses WHERE id = $1 RETURNING *', [courseId]);
+    if (result.rows.length === 0) {
+      return res.json({
+        code: 404,
+        message: 'Không tìm thấy khóa học!'
+      });
+    }
+    res.json({
+      code: 200,
+      message: 'Xóa thành công!'
+    });
+  } catch (err) {
+    res.json({
+      code: 500,
+      error: err.message
+    });
+  }
+};
