@@ -2,8 +2,9 @@ import { uploadToCloudinary } from "../../helper/uploadToCloudinary.js";
 
 export const uploadSingle = async (req, res, next) => {
     if (req["file"]) {
-        const link = await uploadToCloudinary(req["file"].buffer);
-        req.body[req["file"].fieldname] = link;
+        const { url, duration } = await uploadToCloudinary(req["file"].buffer);
+        req.body[req["file"].fieldname] = url;
+        req.body["duration"] = duration;
         next();
     } else {
         next();

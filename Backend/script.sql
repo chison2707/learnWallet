@@ -73,6 +73,7 @@ CREATE TABLE lessons (
   title VARCHAR(255) NOT NULL,
   videoUrl TEXT, 
   position INTEGER NOT NULL DEFAULT 1, 
+  duration INTEGER DEFAULT 0;
   status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
