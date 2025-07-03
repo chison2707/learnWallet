@@ -60,9 +60,19 @@ export const getDetail = async (req, res) => {
 
   const result = await pool.query('SELECT * FROM proposals WHERE id = $1', [proposalId]);
 
+  const resultDetail = await pool.query(`
+      SELECT 
+        COUNT(*) FILTER (WHERE vote = TRUE) AS agree,
+        COUNT(*) FILTER (WHERE vote = FALSE) AS disagree,
+        COUNT(*) AS total
+      FROM votes
+      WHERE proposalId = $1
+    `, [proposalId]);
+
   res.json({
     code: 200,
-    course: result.rows[0]
+    course: result.rows[0],
+    result: resultDetail.rows[0]
   });
 }
 

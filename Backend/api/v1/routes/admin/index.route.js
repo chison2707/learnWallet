@@ -3,6 +3,7 @@ import { courseRouter } from "./course.route.js";
 import { chapterRouter } from "./chapter.route.js";
 import { leassonRouter } from "./leasson.route.js";
 import { proposalRouter } from "./proposal.route.js";
+import { accountRouter } from "./account.route.js";
 
 import requireAuthAdmnin from "../../middlewares/admin/auth.middleware.js";
 
@@ -14,6 +15,7 @@ const mainV1RoutesAdmin = (app) => {
     app.use(version + '/chapters', requireAuthAdmnin, chapterRouter);
     app.use(version + '/leassons', requireAuthAdmnin, leassonRouter);
     app.use(version + '/proposals', requireAuthAdmnin, proposalRouter);
+    app.use(version + '/', accountRouter);
 }
 
 export default mainV1RoutesAdmin;

@@ -28,6 +28,18 @@ export const index = async (req, res) => {
   });
 }
 
+// [GET]/api/v1/admin/users/:userId 
+export const getDetail = async (req, res) => {
+  const { userId } = req.params;
+
+  const result = await pool.query('SELECT id, fullName, email, phone, role, tokenUser, createdAt FROM users WHERE id = $1', [userId]);
+
+  res.json({
+    code: 200,
+    user: result.rows[0]
+  });
+}
+
 // [PATCH]/api/v1/admin/users/changeStatus/:userId?status=
 export const changeStatus = async (req, res) => {
   try {
