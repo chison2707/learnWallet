@@ -73,7 +73,8 @@ CREATE TABLE lessons (
   title VARCHAR(255) NOT NULL,
   videoUrl TEXT, 
   position INTEGER NOT NULL DEFAULT 1, 
-  duration INTEGER DEFAULT 0;
+  duration INTEGER DEFAULT 0,
+  token INTEGER NOT NULL DEFAULT 10,
   status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -82,12 +83,27 @@ CREATE TABLE lessons (
 );
 
 -- lesson results
-CREATE TABLE progress  (
+CREATE TABLE progress (
   id SERIAL PRIMARY KEY,
-  studentId INTEGER REFERENCES users(id),
-  lessonId INTEGER REFERENCES lessons(id),
+  studentId INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  lessonId INTEGER NOT NULL REFERENCES lessons(id) ON DELETE CASCADE,
   score INTEGER,
   completed BOOLEAN DEFAULT FALSE,
   completedAt TIMESTAMP,
-  UNIQUE(studentId, lessonId)
+  watchedDuration INTEGER DEFAULT 0,    
+  videoDuration INTEGER DEFAULT 0,      
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(studentId, lessonId)  
+);
+
+-- transactions
+CREATE TABLE transactions (
+  id SERIAL PRIMARY KEY,
+  studentId INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  lessonId INTEGER REFERENCES lessons(id) ON DELETE SET NULL,
+  amount INTEGER NOT NULL,
+  type VARCHAR(20) NOT NULL CHECK (type IN ('reward', 'refund')),
+  description TEXT,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

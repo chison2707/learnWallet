@@ -3,13 +3,13 @@ import paginationHelper from "../../helper/pagination.js";
 
 // [POST]/api/v1/admin/lessons/createLesson
 export const createLeasson = async (req, res) => {
-  const { title, chapterId, videoUrl, position, duration } = req.body;
+  const { title, chapterId, videoUrl, position, duration, token } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO lessons (title, chapterId, videoUrl, position,duration )
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO lessons (title, chapterId, videoUrl, position,duration,token )
+       VALUES ($1, $2, $3, $4, $5,$6)
        RETURNING *`,
-      [title, chapterId, videoUrl, position, duration]
+      [title, chapterId, videoUrl, position, duration, token]
     );
     res.json({
       code: 200,
@@ -107,23 +107,23 @@ export const changeStatus = async (req, res) => {
 export const editLeasson = async (req, res) => {
   try {
     const { leassonId } = req.params;
-    const { title, videoUrl, position, duration } = req.body;
+    const { title, videoUrl, position, duration, token } = req.body;
 
     let result;
 
     if (videoUrl) {
       result = await pool.query(
         `UPDATE lessons
-         SET title = $1, position = $2, videoUrl = $3,duration= $4, updatedAt = CURRENT_TIMESTAMP
-         WHERE id = $5 RETURNING *`,
-        [title, position, videoUrl, duration, leassonId]
+         SET title = $1, position = $2, videoUrl = $3,duration= $4,token =$5 updatedAt = CURRENT_TIMESTAMP
+         WHERE id = $6 RETURNING *`,
+        [title, position, videoUrl, duration, token, leassonId]
       );
     } else {
       result = await pool.query(
         `UPDATE lessons
-         SET title = $1, position = $2, updatedAt = CURRENT_TIMESTAMP
-         WHERE id = $3 RETURNING *`,
-        [title, position, leassonId]
+         SET title = $1, position = $2,token = $3 updatedAt = CURRENT_TIMESTAMP
+         WHERE id = $4 RETURNING *`,
+        [title, position, token, leassonId]
       );
     }
 

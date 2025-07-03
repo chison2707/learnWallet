@@ -1,6 +1,6 @@
-import { pool } from "../../../config/database.js";
-import { comparePassword, hashPassword } from "../helper/password.js";
-import { generateRandomString } from "../helper/token.js";
+import { pool } from "../../../../config/database.js";
+import { comparePassword, hashPassword } from "../../helper/password.js";
+import { generateRandomString } from "../../helper/token.js";
 
 // [POST]/api/v1/users/register
 export const register = async (req, res) => {

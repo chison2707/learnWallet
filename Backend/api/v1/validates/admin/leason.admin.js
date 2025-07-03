@@ -9,6 +9,9 @@ export const leasson = (req, res, next) => {
     if (!req.body.position) {
         errors.push('Vui lòng nhập vị trí!');
     }
+    if (!req.body.token) {
+        errors.push('Vui lòng nhập điểm!');
+    }
     if (!req.body.videoUrl) {
         errors.push('Vui lòng tải video khóa học lên!');
     }
@@ -31,7 +34,9 @@ export const leassonEdit = (req, res, next) => {
     if (!req.body.position) {
         errors.push('Vui lòng nhập vị trí!');
     }
-
+    if (!req.body.token) {
+        errors.push('Vui lòng nhập điểm!');
+    }
     if (errors.length > 0) {
         return res.json({
             status: 422,

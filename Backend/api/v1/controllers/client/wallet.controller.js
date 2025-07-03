@@ -1,4 +1,4 @@
-import { pool } from "../../../config/database.js";
+import { pool } from "../../../../config/database.js";
 
 // [GET]/api/v1/wallet
 export const getWallet = async (req, res) => {
