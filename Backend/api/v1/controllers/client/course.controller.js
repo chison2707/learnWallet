@@ -4,7 +4,7 @@ import { pool } from "../../../../config/database.js";
 export const getCourses = async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT * FROM courses ORDER BY createdAt DESC`);
+      SELECT * FROM courses WHERE status = 'active' ORDER BY createdAt DESC`);
 
     return res.json({
       code: 200,
@@ -28,7 +28,7 @@ export const getChapters = async (req, res) => {
     const chaptersRes = await pool.query(`
       SELECT id, title, position, status, createdAt, updatedAt
       FROM chapters
-      WHERE courseId = $1
+      WHERE courseId = $1 AND status = 'active'
       ORDER BY position ASC
     `, [courseId]);
 
@@ -55,7 +55,7 @@ export const getLessons = async (req, res) => {
     const result = await pool.query(`
       SELECT id, title, videoUrl, position, duration, token, status, createdAt, updatedAt
       FROM lessons
-      WHERE chapterId = $1
+      WHERE chapterId = $1 AND status = 'active'
       ORDER BY position ASC
     `, [chapterId]);
 

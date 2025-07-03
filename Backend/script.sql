@@ -107,3 +107,22 @@ CREATE TABLE transactions (
   description TEXT,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- proposals
+CREATE TABLE proposals (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- vote
+CREATE TABLE votes (
+  id SERIAL PRIMARY KEY,
+  parentId INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  proposalId INTEGER REFERENCES proposals(id) ON DELETE CASCADE,
+  vote BOOLEAN NOT NULL, 
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(parentId, proposalId) 
+);
