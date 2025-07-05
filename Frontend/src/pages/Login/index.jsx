@@ -4,31 +4,31 @@ const Login = () => {
   return (
     <>
       <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Đăng Nhập</h2>
           <form >
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-left text-sm font-medium text-gray-700 mb-4">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Nhập email của bạn"
                 required
               />
             </div>
             <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-left text-sm font-medium text-gray-700 mb-4">
                 Mật Khẩu
               </label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
                 placeholder="Nhập mật khẩu"
                 required
               />
