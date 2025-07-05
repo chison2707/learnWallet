@@ -1,10 +1,11 @@
 import './App.css'
+import AllRoutes from './components/AllRoutes'
 
 function App() {
 
   return (
     <>
-      <h1 className='text-amber-400'>hello</h1>
+      <AllRoutes />
     </>
   )
 }
