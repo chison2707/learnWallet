@@ -1,7 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { login } from "../../../services/userService";
+import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch } from "react-redux";
+import { setCookie } from "../../helpers/cookie";
+import { checkLogin } from "../../action/login";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
@@ -15,16 +22,20 @@ const Login = () => {
 
     if (result.status === 422) {
       result.errors.forEach(err => {
-        alert(err);
+        toast.error(err);
       });
       return;
     }
 
     if (result.status === 400) {
-      alert(result.message);
+      toast.error(result.message);
       return;
     }
 
+    toast.success(result.message);
+    navigate("/");
+    setCookie("token", result.token, 1);
+    dispatch(checkLogin(true));
 
   }
 
@@ -74,6 +85,10 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+      />
     </>
   )
 }

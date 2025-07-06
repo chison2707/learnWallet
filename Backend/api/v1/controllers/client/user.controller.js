@@ -105,7 +105,8 @@ export const loginPost = async (req, res) => {
         message: "Mật khẩu không đúng!",
       });
     }
-    const token = user.tokenuser;
+    const token = user.tokenUser;
+
     res.cookie("tokenUser", token);
 
     res.json({
