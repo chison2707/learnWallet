@@ -7,7 +7,7 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   tokenUser VARCHAR(255) UNIQUE NOT NULL,
   role VARCHAR(25) CHECK (role IN ('student', 'parent')) NOT NULL,
-  status VARCHAR(20) DEFAULT 'INACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+  status VARCHAR(20) DEFAULT 'inactive' CHECK (status IN ('active', 'inactive')),
   createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

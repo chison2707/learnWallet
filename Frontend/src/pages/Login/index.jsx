@@ -1,12 +1,39 @@
 import { NavLink } from "react-router-dom";
+import { login } from "../../../services/userService";
 
 const Login = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+    console.log(email, password);
+
+
+    const result = await login({ email, password });
+
+    console.log(result);
+
+    if (result.status === 422) {
+      result.errors.forEach(err => {
+        alert(err);
+      });
+      return;
+    }
+
+    if (result.status === 400) {
+      alert(result.message);
+      return;
+    }
+
+
+  }
+
   return (
     <>
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Đăng Nhập</h2>
-          <form >
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="email" className="block text-left text-sm font-medium text-gray-700 mb-4">
                 Email

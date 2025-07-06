@@ -13,7 +13,7 @@ export async function up(knex) {
       table.string("password").notNullable();
       table.string("tokenUser").unique().notNullable();
       table.enu("role", ["student", "parent"]).notNullable();
-      table.enu("status", ["ACTIVE", "INACTIVE"]).defaultTo("INACTIVE");
+      table.enu("status", ["active", "inactive"]).defaultTo("inactive");
       table.timestamp("createdAt").defaultTo(knex.fn.now());
       table.timestamp("updatedAt").defaultTo(knex.fn.now());
     })
@@ -43,7 +43,7 @@ export async function up(knex) {
       table.increments("id").primary();
       table.integer("studentId").unique().references("id").inTable("users").onDelete("CASCADE");
       table.integer("balance").defaultTo(0);
-      table.enu("status", ["ACTIVE", "inactive"]).defaultTo("inactive");
+      table.enu("status", ["active", "inactive"]).defaultTo("inactive");
       table.timestamp("createdAt").defaultTo(knex.fn.now());
       table.timestamp("updatedAt").defaultTo(knex.fn.now());
     })

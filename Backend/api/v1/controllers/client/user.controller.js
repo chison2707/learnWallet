@@ -23,7 +23,7 @@ export const register = async (req, res) => {
     const tokenUser = generateRandomString(16);
 
     const result = await pool.query(
-      `INSERT INTO users (fullName, email, phone, password, role,tokenUser)
+      `INSERT INTO users ("fullName", email, phone, password, role,"tokenUser")
        VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
       [fullName, email, phone, hashedPassword, role, tokenUser]
     );
@@ -32,7 +32,7 @@ export const register = async (req, res) => {
 
     if (role === "student") {
       await pool.query(
-        "INSERT INTO wallets (studentId, balance) VALUES ($1, $2)",
+        `INSERT INTO wallets ("studentId", balance) VALUES ($1, $2)`,
         [userId, 0]
       );
     }
