@@ -18,8 +18,6 @@ const Login = () => {
 
     const result = await login({ email, password });
 
-    console.log(result);
-
     if (result.status === 422) {
       result.errors.forEach(err => {
         toast.error(err);

@@ -19,6 +19,18 @@ export const register = async (req, res) => {
       });
     }
 
+    const checkPhone = await pool.query(
+      "SELECT * FROM users WHERE phone = $1",
+      [phone]
+    );
+
+    if (checkPhone.rows.length > 0) {
+      return res.json({
+        code: 400,
+        message: "Số điện thoại đã tồn tại"
+      });
+    }
+
     const hashedPassword = await hashPassword(password);
     const tokenUser = generateRandomString(16);
 
@@ -65,16 +77,16 @@ export const register = async (req, res) => {
       }
     }
 
-    res.json({
+    return res.json({
       code: 200,
       message: "Đăng ký thành công",
       userId,
+      token: tokenUser
     });
   } catch (error) {
-    console.error("Lỗi trong register:", error);
-    res.json({
+    return res.json({
       code: 500,
-      message: "Lỗi server"
+      message: error.message
     });
   }
 };
@@ -152,6 +164,26 @@ export const getStudent = async (req, res) => {
       JOIN users  ON users.id = ps.student_id
       WHERE ps.parent_id = $1
     `, [userId]);
+
+    return res.json({
+      code: 200,
+      message: "Lấy danh sách học viên thành công.",
+      students: result.rows
+    });
+
+  } catch (error) {
+    return res.json({
+      code: 500,
+      message: error.message
+    });
+
+  }
+};
+
+// [GET]/api/v1/users/getListStudent
+export const getListStudent = async (req, res) => {
+  try {
+    const result = await pool.query(`SELECT id, "fullName", email, phone FROM users where role = 'student'`);
 
     return res.json({
       code: 200,

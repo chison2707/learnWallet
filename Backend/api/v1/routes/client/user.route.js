@@ -9,5 +9,6 @@ router.post('/register', validate.rergisterVld, controller.register);
 router.post('/login', validate.login, controller.loginPost);
 router.get('/detail', requireAuth, controller.detail);
 router.get('/getStudent', requireAuth, controller.getStudent);
+router.get('/getListStudent', controller.getListStudent);
 
 export const userRouter = router;
