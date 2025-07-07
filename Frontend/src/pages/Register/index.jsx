@@ -37,7 +37,6 @@ const Register = () => {
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
     const phone = e.target.phone.value;
-    // const roleValue = e.target.role.value;
 
     const options = {
       fullName,
