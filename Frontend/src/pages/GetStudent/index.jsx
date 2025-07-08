@@ -3,20 +3,6 @@ import { getStudent } from "../../../services/userService";
 import { getCookie } from "../../helpers/cookie";
 
 const GetStudent = () => {
-  const students = [
-    {
-      id: 1,
-      fullName: "Nguyễn Văn A",
-      email: "a@gmail.com",
-      phone: "0912345678",
-    },
-    {
-      id: 2,
-      fullName: "Trần Thị B",
-      email: "b@gmail.com",
-      phone: "0987654321",
-    },
-  ];
   const token = getCookie("token");
   const [data, setData] = useState([]);
 
@@ -28,9 +14,6 @@ const GetStudent = () => {
 
     fetchDashboard();
   }, []);
-  console.log(data);
-
-
 
   return (
     <>

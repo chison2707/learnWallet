@@ -22,6 +22,6 @@ export const detail = async (token) => {
 }
 
 export const getStudents = async (token) => {
-    const result = await getAuth(`users/getStudent`, token);
+    const result = await getAuth(`users/getListStudent`, token);
     return result;
 }
