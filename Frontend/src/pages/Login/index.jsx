@@ -3,7 +3,7 @@ import { login } from "../../../services/userService";
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { setCookie } from "../../helpers/cookie";
-import { checkLogin } from "../../action/login";
+import { setUser } from "../../action/login";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Login = () => {
     toast.success(result.message);
     navigate("/");
     setCookie("token", result.token, 1);
-    dispatch(checkLogin(true));
+    dispatch(setUser(result.user));
 
   }
 

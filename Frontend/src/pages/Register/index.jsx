@@ -5,7 +5,7 @@ import Select from "react-select";
 import { getStudent, register } from "../../../services/userService";
 import { useDispatch } from "react-redux";
 import { setCookie } from "../../helpers/cookie";
-import { checkLogin } from "../../action/login";
+import { setUser } from "../../action/login";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const Register = () => {
     toast.success(result.message);
     navigate("/");
     setCookie("token", result.token, 1);
-    dispatch(checkLogin(true));
+    dispatch(setUser(result.user));
   }
 
   return (

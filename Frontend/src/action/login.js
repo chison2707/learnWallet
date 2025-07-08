@@ -1,6 +1,8 @@
-export const checkLogin = (status) => {
-  return {
-    type: "checkLog",
-    status: status
-  };
-}
+export const setUser = (user) => ({
+  type: 'SET_USER',
+  payload: user,
+});
+
+export const logout = () => ({
+  type: 'LOGOUT',
+});

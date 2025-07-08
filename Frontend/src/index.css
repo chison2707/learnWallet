@@ -7,11 +7,3 @@
 .top-menu-item-active {
   @apply text-gray-800;
 }
-
-.icon {
-  @apply inline-block w-5 h-5;
-}
-
-.badge-circle {
-  @apply text-xs text-center rounded-full px-1.5;
-}

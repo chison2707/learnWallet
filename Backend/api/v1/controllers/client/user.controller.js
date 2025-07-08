@@ -36,11 +36,12 @@ export const register = async (req, res) => {
 
     const result = await pool.query(
       `INSERT INTO users ("fullName", email, phone, password, role,"tokenUser")
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
       [fullName, email, phone, hashedPassword, role, tokenUser]
     );
 
     const userId = result.rows[0].id;
+    const user = result.rows[0];
 
     if (role === "student") {
       await pool.query(
@@ -81,6 +82,7 @@ export const register = async (req, res) => {
       code: 200,
       message: "Đăng ký thành công",
       userId,
+      user,
       token: tokenUser
     });
   } catch (error) {
@@ -125,6 +127,7 @@ export const loginPost = async (req, res) => {
       code: 200,
       message: "Đăng nhập thành công",
       token: token,
+      user
     });
 
   } catch (error) {

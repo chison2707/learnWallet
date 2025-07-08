@@ -1,5 +1,5 @@
 import { get, post } from "../utils/request";
-// import { getAuth, patchAuth } from "../utils/requestAuth";
+import { getAuth } from "../utils/requestAuth";
 
 export const login = async (options) => {
     const result = await post(`users/login`, options);
@@ -13,5 +13,10 @@ export const register = async (options) => {
 
 export const getStudent = async () => {
     const result = await get(`users/getListStudent`);
+    return result;
+}
+
+export const detail = async (token) => {
+    const result = await getAuth(`users/detail`, token);
     return result;
 }
