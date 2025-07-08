@@ -20,3 +20,8 @@ export const detail = async (token) => {
     const result = await getAuth(`users/detail`, token);
     return result;
 }
+
+export const getStudents = async (token) => {
+    const result = await getAuth(`users/getStudent`, token);
+    return result;
+}
