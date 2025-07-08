@@ -1,5 +1,6 @@
 import PrivateRoute from "../components/PrivateRoute"
 import LayoutDefault from "../Layout/LayoutDefault"
+import Detail from "../pages/Detail"
 import Home from "../pages/Home"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
@@ -23,6 +24,10 @@ export const routes = [
           {
             path: "/",
             element: <Home />
+          },
+          {
+            path: "/profile",
+            element: <Detail />
           }
         ]
       }

@@ -3,8 +3,6 @@ import { Outlet } from "react-router-dom";
 
 const LayoutDefault = () => {
   const { isLogin, user } = useSelector((state) => state.loginReducer);
-  console.log(isLogin, user);
-
 
   return (
     <>

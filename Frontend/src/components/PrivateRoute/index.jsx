@@ -18,7 +18,6 @@ function PrivateRoute() {
       const fetchUser = async () => {
         try {
           const result = await detail(token);
-          console.log(result);
           if (result && result.infor) {
             dispatch(setUser(result.infor));
           }
