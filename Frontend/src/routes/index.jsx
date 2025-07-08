@@ -1,8 +1,10 @@
 import PrivateRoute from "../components/PrivateRoute"
 import LayoutDefault from "../Layout/LayoutDefault"
 import Detail from "../pages/Detail"
+import GetStudent from "../pages/GetStudent"
 import Home from "../pages/Home"
 import Login from "../pages/Login"
+import Logout from "../pages/Logout"
 import Register from "../pages/Register"
 
 export const routes = [
@@ -26,8 +28,16 @@ export const routes = [
             element: <Home />
           },
           {
+            path: "/logout",
+            element: <Logout />
+          },
+          {
             path: "/profile",
             element: <Detail />
+          },
+          {
+            path: "/getStudents",
+            element: <GetStudent />
           }
         ]
       }

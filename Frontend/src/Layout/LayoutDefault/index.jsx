@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const LayoutDefault = () => {
   const { isLogin, user } = useSelector((state) => state.loginReducer);
@@ -35,9 +35,9 @@ const LayoutDefault = () => {
                       <a href="/profile">{user.fullName}</a>
                     </li>
                     <li className="top-menu-item">
-                      <button className="cursor-pointer uppercase">
+                      <NavLink to="/logout" className="cursor-pointer uppercase">
                         Đăng xuất
-                      </button>
+                      </NavLink>
                     </li>
                   </>
                 )}

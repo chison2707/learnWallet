@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { detail } from "../../../services/userService";
 import { getCookie } from "../../helpers/cookie";
+import { NavLink } from "react-router-dom";
 
 const Detail = () => {
   const token = getCookie("token");
@@ -45,12 +46,17 @@ const Detail = () => {
           </div >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <a href="/" className="rounded-full bg-red-500 py-3 px-3 text-white hover:bg-red-600">Trang chủ</a>
+              <NavLink to="/" className="rounded-full bg-red-500 py-3 px-3 text-white hover:bg-red-600 cursor-pointer">Trang chủ</NavLink>
             </div>
 
-            <div>
-              <a href="/editUser" className="rounded-full bg-yellow-500 py-3 px-3 text-white hover:bg-yellow-600">Chỉnh sửa trang cá nhân</a>
-            </div>
+            {data.role === 'parent' && (
+              <>
+                <div>
+                  <NavLink to="/getStudents" className="rounded-full bg-yellow-500 py-3 px-3 text-white hover:bg-yellow-600 cursor-pointer">
+                    Danh sách học viên</NavLink>
+                </div>
+              </>
+            )}
           </div>
         </div >
       </div >
