@@ -6,6 +6,7 @@ import Home from "../pages/Home"
 import Login from "../pages/Login"
 import Logout from "../pages/Logout"
 import Register from "../pages/Register"
+import StudentProgess from "../pages/StudentProgess"
 
 export const routes = [
   {
@@ -38,6 +39,10 @@ export const routes = [
           {
             path: "/getStudents",
             element: <GetStudent />
+          },
+          {
+            path: "/studentProgess/:id",
+            element: <StudentProgess />
           }
         ]
       }

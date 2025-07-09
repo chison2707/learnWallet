@@ -25,3 +25,8 @@ export const getStudents = async (token) => {
     const result = await getAuth(`users/getListStudent`, token);
     return result;
 }
+
+export const StudentProgress = async (studentId, token) => {
+    const result = await getAuth(`parents/progress/${studentId}`, token);
+    return result;
+}

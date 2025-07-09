@@ -26,9 +26,9 @@ export const getStudentProgress = async (req, res) => {
       });
     }
 
-    const student = await pool.query(`SELECT fullName, email, phone FROM users WHERE id = $1 AND role = 'student'`, [studentId]);
-    const wallet = await pool.query(`SELECT * FROM wallets WHERE studentId = $1`, [studentId]);
-    const transactions = await pool.query(`SELECT * FROM transactions WHERE studentId = $1`, [studentId]);
+    const student = await pool.query(`SELECT "fullName", email, phone FROM users WHERE id = $1 AND role = 'student'`, [studentId]);
+    const wallet = await pool.query(`SELECT * FROM wallets WHERE "studentId" = $1`, [studentId]);
+    const transactions = await pool.query(`SELECT * FROM transactions WHERE "studentId" = $1`, [studentId]);
 
     const progressRes = await pool.query(`
       SELECT 
@@ -36,18 +36,18 @@ export const getStudentProgress = async (req, res) => {
         c.title AS chapterTitle,
         co.title AS courseTitle,
         p.completed,
-        p.completedAt,
-        p.watchedDuration,
-        p.videoDuration,
+        p."completedAt",
+        p."watchedDuration",
+        p."videoDuration",
         t.amount AS tokenRewarded
       FROM progress p
-      JOIN lessons l ON l.id = p.lessonId
-      JOIN chapters c ON c.id = l.chapterId
-      JOIN courses co ON co.id = c.courseId
+      JOIN lessons l ON l.id = p."lessonId"
+      JOIN chapters c ON c.id = l."chapterId"
+      JOIN courses co ON co.id = c."courseId"
       LEFT JOIN transactions t 
-        ON t.lessonId = l.id AND t.studentId = p.studentId AND t.type = 'reward'
-      WHERE p.studentId = $1
-      ORDER BY p.completedAt DESC
+        ON t."lessonId" = l.id AND t."studentId" = p."studentId" AND t.type = 'reward'
+      WHERE p."studentId" = $1
+      ORDER BY p."completedAt" DESC
     `, [studentId]);
 
     return res.json({

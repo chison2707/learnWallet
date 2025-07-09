@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getStudent } from "../../../services/userService";
 import { getCookie } from "../../helpers/cookie";
+import { useNavigate } from "react-router-dom";
 
 const GetStudent = () => {
   const token = getCookie("token");
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -35,7 +37,8 @@ const GetStudent = () => {
               </thead>
               <tbody>
                 {data.map((student, index) => (
-                  <tr key={student.id} className="border-b hover:bg-gray-50">
+                  <tr key={student.id} onClick={() => navigate(`/studentProgess/${student.id}`)}
+                    className="border-b hover:bg-gray-50 cursor-pointer">
                     <td className="p-3">{index + 1}</td>
                     <td className="p-3 font-medium text-gray-800">{student.fullName}</td>
                     <td className="p-3 text-gray-600">{student.email}</td>
