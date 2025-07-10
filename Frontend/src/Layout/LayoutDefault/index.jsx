@@ -21,7 +21,7 @@ const LayoutDefault = () => {
                   <a href="/">Home</a>
                 </li>
                 <li className="top-menu-item">
-                  <a href="#">Products</a>
+                  <a href="/courses">Khóa học</a>
                 </li>
                 <li className="top-menu-item">
                   <a href="#">Blog</a>

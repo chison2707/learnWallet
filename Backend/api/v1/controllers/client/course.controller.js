@@ -4,7 +4,7 @@ import { pool } from "../../../../config/database.js";
 export const getCourses = async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT * FROM courses WHERE status = 'active' ORDER BY createdAt DESC`);
+      SELECT * FROM courses WHERE status = 'active' ORDER BY "createdAt" DESC`);
 
     return res.json({
       code: 200,

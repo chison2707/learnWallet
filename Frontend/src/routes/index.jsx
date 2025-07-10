@@ -1,5 +1,6 @@
 import PrivateRoute from "../components/PrivateRoute"
 import LayoutDefault from "../Layout/LayoutDefault"
+import Courses from "../pages/Courses"
 import Detail from "../pages/Detail"
 import GetStudent from "../pages/GetStudent"
 import Home from "../pages/Home"
@@ -43,6 +44,10 @@ export const routes = [
           {
             path: "/studentProgess/:id",
             element: <StudentProgess />
+          },
+          {
+            path: "/courses",
+            element: <Courses />
           }
         ]
       }
