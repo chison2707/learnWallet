@@ -2,31 +2,9 @@ import { useEffect, useState } from 'react';
 import { getCookie } from '../../helpers/cookie';
 import { StudentProgress } from '../../../services/userService';
 import { useParams } from 'react-router-dom';
-
-const formatDuration = (seconds) => {
-  if (!seconds || isNaN(seconds)) return '0:00';
-  const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
-  return `${min}:${sec.toString().padStart(2, '0')}`;
-};
-
-const InfoCard = ({ title, value, icon }) => (
-  <div className="flex items-center space-x-4">
-    <div className="bg-blue-100 p-3 rounded-full">
-      {icon}
-    </div>
-    <div>
-      <p className="text-sm text-gray-500">{title}</p>
-      <p className="text-lg font-semibold text-gray-800">{value}</p>
-    </div>
-  </div>
-);
-
-const formatDate = (isoDate) => {
-  if (!isoDate) return '-';
-  const date = new Date(isoDate);
-  return date.toLocaleDateString('vi-VN');
-};
+import InfoCard from './InfoCard';
+import FormatDuration from './FormatDuration';
+import FormatDate from './FormatDate';
 
 const StudentProgess = () => {
   const { id } = useParams();
@@ -115,9 +93,9 @@ const StudentProgess = () => {
                       </span>
                     </td>
                     <td className="p-3 text-center font-mono text-gray-600">
-                      {formatDuration(item.watchedduration)} / {formatDuration(item.videoduration)}
+                      {FormatDuration(item.watchedduration)} / {FormatDuration(item.videoduration)}
                     </td>
-                    <td className="p-3 text-center text-gray-600">{formatDate(item.completedat)}</td>
+                    <td className="p-3 text-center text-gray-600">{FormatDate(item.completedat)}</td>
                     <td className="p-3 text-right font-semibold text-green-600">{item.tokenrewarded || 0}</td>
                   </tr>
                 )) : (
@@ -143,7 +121,7 @@ const StudentProgess = () => {
               <tbody>
                 {transactions.length > 0 ? transactions.map(tx => (
                   <tr key={tx.id} className="border-b hover:bg-gray-50 transition-colors">
-                    <td className="p-3">{formatDate(tx.createdAt)}</td>
+                    <td className="p-3">{FormatDate(tx.createdAt)}</td>
                     <td className="p-3">{tx.description}</td>
                     <td className="p-3 text-center">
                       <span className={`px-2 py-1 text-xs font-semibold rounded-full ${tx.type === 'reward' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'}`}>
