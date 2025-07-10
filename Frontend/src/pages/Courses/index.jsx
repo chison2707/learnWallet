@@ -52,14 +52,14 @@ const Courses = () => {
                     src={course.thumbnail}
                     alt={course.title}
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                  <div className="absolute inset-0 bg-transparent transition-colors duration-300 group-hover:bg-black/10"></div>
                 </div>
                 <div className="p-6">
                   <h2 className="text-xl font-semibold mb-2 h-14 overflow-hidden text-gray-900">{course.title}</h2>
                   <p className="text-gray-600 text-sm h-20 overflow-hidden text-ellipsis">{course.description}</p>
                   <div className="mt-4 flex justify-between items-center">
                     <span className="text-sm text-gray-500">
-                      {new Date(course.createdat).toLocaleDateString('vi-VN')}
+                      {new Date(course.createdAt).toLocaleDateString('vi-VN')}
                     </span>
                     <span className="text-indigo-600 group-hover:text-indigo-800 font-medium">
                       Xem chi tiết →

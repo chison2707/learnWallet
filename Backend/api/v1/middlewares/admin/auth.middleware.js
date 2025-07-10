@@ -4,7 +4,7 @@ const requireAuthAdmnin = async (req, res, next) => {
     if (req.headers.authorization) {
         const token = req.headers.authorization.split(' ')[1];
         const admin = await pool.query({
-            text: "SELECT * FROM accounts WHERE tokenAccount = $1",
+            text: `SELECT * FROM accounts WHERE "tokenAccount" = $1`,
             values: [token]
         });
 
