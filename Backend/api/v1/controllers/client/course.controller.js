@@ -20,15 +20,15 @@ export const getCourses = async (req, res) => {
   }
 };
 
-// [GET] /api/v1/courses/chapters/:courseId
+// [GET] /api/v1/courses/:courseId
 export const getChapters = async (req, res) => {
   try {
     const { courseId } = req.params;
 
     const chaptersRes = await pool.query(`
-      SELECT id, title, position, status, createdAt, updatedAt
+      SELECT id, title, position, status, "createdAt", "updatedAt"
       FROM chapters
-      WHERE courseId = $1 AND status = 'active'
+      WHERE "courseId" = $1 AND status = 'active'
       ORDER BY position ASC
     `, [courseId]);
 

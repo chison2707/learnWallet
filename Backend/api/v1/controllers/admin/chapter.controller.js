@@ -45,7 +45,7 @@ export const createChapter = async (req, res) => {
   const { title, courseId, position } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO chapters (title, courseId, position)
+      `INSERT INTO chapters (title, "courseId", position)
        VALUES ($1, $2, $3)
        RETURNING *`,
       [title, courseId, position]

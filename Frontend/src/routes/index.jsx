@@ -1,5 +1,6 @@
 import PrivateRoute from "../components/PrivateRoute"
 import LayoutDefault from "../Layout/LayoutDefault"
+import Chapters from "../pages/Chapters"
 import Courses from "../pages/Courses"
 import Detail from "../pages/Detail"
 import GetStudent from "../pages/GetStudent"
@@ -48,7 +49,11 @@ export const routes = [
           {
             path: "/courses",
             element: <Courses />
-          }
+          },
+          {
+            path: "/courses/:id",
+            element: <Chapters />
+          },
         ]
       }
     ]
