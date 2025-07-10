@@ -6,7 +6,7 @@ export const createLeasson = async (req, res) => {
   const { title, chapterId, videoUrl, position, duration, token } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO lessons (title, chapterId, videoUrl, position,duration,token )
+      `INSERT INTO lessons (title, "chapterId", "videoUrl", position,duration,token )
        VALUES ($1, $2, $3, $4, $5,$6)
        RETURNING *`,
       [title, chapterId, videoUrl, position, duration, token]

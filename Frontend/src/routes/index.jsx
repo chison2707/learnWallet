@@ -5,6 +5,7 @@ import Courses from "../pages/Courses"
 import Detail from "../pages/Detail"
 import GetStudent from "../pages/GetStudent"
 import Home from "../pages/Home"
+import Lesson from "../pages/Lesson"
 import Login from "../pages/Login"
 import Logout from "../pages/Logout"
 import Register from "../pages/Register"
@@ -53,6 +54,10 @@ export const routes = [
           {
             path: "/courses/:id",
             element: <Chapters />
+          },
+          {
+            path: "/courses/chapter/:chapterId",
+            element: <Lesson />
           },
         ]
       }

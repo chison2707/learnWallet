@@ -46,11 +46,11 @@ const LayoutDefault = () => {
           </header>
         </div>
 
-        <main className="flex-grow max-w-screen-2xl mx-auto px-8 w-full">
+        <main className="fflex-grow max-w-7xl mx-auto w-full px-6">
           <Outlet />
         </main>
 
-        <footer className="w-full text-gray-700 mt-12">
+        <footer className="w-full text-gray-700 mt-12 border-t border-gray-200">
           <div className="max-w-screen mx-auto px-8 text-sm">
             <div className="text-center uppercase">
               © 2025 LearnWallet. Made by Chí Sơn.

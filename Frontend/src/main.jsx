@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import { Provider } from "react-redux";
 import allReducers from './reducers';
 const store = createStore(allReducers);
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>

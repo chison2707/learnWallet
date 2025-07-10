@@ -11,7 +11,6 @@ const Chapters = () => {
   const [error, setError] = useState(null);
   const token = getCookie('token');
 
-
   useEffect(() => {
     const fetchChapters = async () => {
       if (!courseId) return;
@@ -57,10 +56,12 @@ const Chapters = () => {
         <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
           <ul className="space-y-4">
             {chapters.map((chapter) => (
-              <li key={chapter.id} className="flex items-center p-4 bg-gray-50 hover:bg-indigo-50 rounded-lg transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200 hover:shadow-sm">
-                <span className="flex-shrink-0 bg-indigo-500 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold text-lg mr-5">{chapter.position}</span>
-                <span className="text-lg font-medium text-gray-800">{chapter.title}</span>
-              </li>
+              <Link to={`/courses/chapter/${chapter.id}`}>
+                <li key={chapter.id} className="flex items-center p-4 bg-gray-50 hover:bg-indigo-50 rounded-lg transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-200 hover:shadow-sm">
+                  <span className="flex-shrink-0 bg-indigo-500 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold text-lg mr-5">{chapter.position}</span>
+                  <span className="text-lg font-medium text-gray-800">{chapter.title}</span>
+                </li>
+              </Link>
             ))}
           </ul>
           {chapters.length === 0 && <p className="text-center text-gray-500 py-10">Khóa học này chưa có chương nào.</p>}

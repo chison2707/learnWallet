@@ -47,15 +47,15 @@ export const getChapters = async (req, res) => {
   }
 };
 
-// [GET] /api/v1/courses/lessons/:chapterId
+// [GET] /api/v1/courses/chapter/:chapterId
 export const getLessons = async (req, res) => {
   try {
     const { chapterId } = req.params;
 
     const result = await pool.query(`
-      SELECT id, title, videoUrl, position, duration, token, status, createdAt, updatedAt
+      SELECT id, title, "videoUrl", position, duration, token, status, "createdAt", "updatedAt"
       FROM lessons
-      WHERE chapterId = $1 AND status = 'active'
+      WHERE "chapterId" = $1 AND status = 'active'
       ORDER BY position ASC
     `, [chapterId]);
 

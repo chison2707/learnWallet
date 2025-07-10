@@ -9,3 +9,8 @@ export const getChapters = async (courseId, token) => {
   const result = await getAuth(`courses/${courseId}`, token);
   return result;
 }
+
+export const getLessons = async (chapterId, token) => {
+  const result = await getAuth(`courses/chapter/${chapterId}`, token);
+  return result;
+}
