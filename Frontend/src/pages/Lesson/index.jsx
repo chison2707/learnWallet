@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getLessons } from '../../../services/courseService';
 import { getCookie } from '../../helpers/cookie';
-import FormatDuration from './FormatDuration';
 import { ToastContainer, toast } from 'react-toastify';
 import LessonHeader from './LessonHeader';
 import LessonVideo from './LessonVideo';

@@ -10,6 +10,7 @@ import Login from "../pages/Login"
 import Logout from "../pages/Logout"
 import Register from "../pages/Register"
 import StudentProgess from "../pages/StudentProgess"
+import Wallet from "../pages/Wallet"
 
 export const routes = [
   {
@@ -58,6 +59,10 @@ export const routes = [
           {
             path: "/courses/chapter/:chapterId",
             element: <Lesson />
+          },
+          {
+            path: "/wallets",
+            element: <Wallet />
           },
         ]
       }

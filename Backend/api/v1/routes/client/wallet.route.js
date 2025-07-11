@@ -1,9 +1,8 @@
-// import express from "express";
-// const router = express.Router();
+import express from "express";
+const router = express.Router();
 
-// import { requireAuth } from "../middlewares/auth.middleware.js";
-// import * as controller from "../../controllers/client/wallet.controller.js";
+import * as controller from "../../controllers/client/wallet.controller.js";
 
-// router.get('/getWallet', requireAuth, controller.getWallet);
+router.get('/', controller.getWallet);
 
-// export const walletRouter = router;
+export const walletRouter = router;

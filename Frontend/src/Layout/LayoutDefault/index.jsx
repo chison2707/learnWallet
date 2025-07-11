@@ -3,6 +3,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const LayoutDefault = () => {
   const { isLogin, user } = useSelector((state) => state.loginReducer);
+  console.log(user);
+
 
   return (
     <>
@@ -18,21 +20,23 @@ const LayoutDefault = () => {
                 className="hidden lg:flex items-center gap-8 uppercase text-sm text-gray-500 font-medium"
               >
                 <li className="top-menu-item">
-                  <a href="/">Home</a>
+                  <NavLink to="/">Home</NavLink>
                 </li>
                 <li className="top-menu-item">
-                  <a href="/courses">Khóa học</a>
+                  <NavLink to="/courses">Khóa học</NavLink>
                 </li>
+                {(isLogin && user?.role === 'student') && (
+                  <li className="top-menu-item">
+                    <NavLink to="/wallets">Ví thưởng</NavLink>
+                  </li>
+                )}
                 <li className="top-menu-item">
-                  <a href="#">Blog</a>
-                </li>
-                <li className="top-menu-item">
-                  <a href="#">Contact</a>
+                  <NavLink to="/contact">Contact</NavLink>
                 </li>
                 {(isLogin && user) && (
                   <>
                     <li className="top-menu-item">
-                      <a href="/profile">{user.fullName}</a>
+                      <NavLink to="/profile">{user.fullName}</NavLink>
                     </li>
                     <li className="top-menu-item">
                       <NavLink to="/logout" className="cursor-pointer uppercase">
@@ -46,7 +50,7 @@ const LayoutDefault = () => {
           </header>
         </div>
 
-        <main className="fflex-grow max-w-7xl mx-auto w-full px-6">
+        <main className="flex-grow max-w-7xl mx-auto w-full px-6">
           <Outlet />
         </main>
 
