@@ -73,7 +73,7 @@ export const completeLesson = async (req, res) => {
       await pool.query("COMMIT");
       return res.json({
         code: 200,
-        message: "Đã lưu tiến độ xem video (chưa hoàn thành bài học)."
+        message: "Đã lưu tiến độ xem video."
       });
     }
 

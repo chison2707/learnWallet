@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getLessons } from '../../../services/courseService';
+import { getLessons, completeLesson } from '../../../services/courseService';
 import { getCookie } from '../../helpers/cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import LessonHeader from './LessonHeader';
@@ -42,6 +42,28 @@ const Lesson = () => {
     fetchLessons();
   }, [chapterId, token]);
 
+  const handleCompleteLesson = async (lessonId, watchedDuration) => {
+    if (!lessonId) return;
+
+    try {
+      const result = await completeLesson(lessonId, { watchedDuration }, token);
+      console.log(result);
+
+
+      if (result.code === 200) {
+        toast.success(result.message);
+        const lessonsResult = await getLessons(chapterId, token);
+        if (lessonsResult.code === 200) {
+          setLessons(lessonsResult.lessons);
+        }
+      } else {
+        toast.error(result.message || 'Không thể hoàn thành bài học.');
+      }
+    } catch (err) {
+      toast.error(err.response.data.message || err.message || 'Có lỗi xảy ra khi hoàn thành bài học.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen text-gray-600">
@@ -63,7 +85,7 @@ const Lesson = () => {
       <div className="my-10 flex flex-col lg:flex-row h-screen bg-gray-50">
         <div className="flex-grow lg:w-3/4 bg-white flex flex-col border-r">
           <LessonHeader title={currentLesson?.title} />
-          <LessonVideo lesson={currentLesson} />
+          <LessonVideo lesson={currentLesson} onComplete={handleCompleteLesson} />
           <LessonInfo lesson={currentLesson} />
         </div>
         <LessonSidebar

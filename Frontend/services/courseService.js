@@ -1,4 +1,4 @@
-import { getAuth } from "../utils/requestAuth";
+import { getAuth, postAuth } from "../utils/requestAuth";
 
 export const getCourses = async (token) => {
   const result = await getAuth(`courses`, token);
@@ -12,5 +12,10 @@ export const getChapters = async (courseId, token) => {
 
 export const getLessons = async (chapterId, token) => {
   const result = await getAuth(`courses/chapter/${chapterId}`, token);
+  return result;
+}
+
+export const completeLesson = async (lessonId, options, token) => {
+  const result = await postAuth(`leassons/complete/${lessonId}`, options, token);
   return result;
 }
